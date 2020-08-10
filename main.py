@@ -13,7 +13,6 @@ class Mods:
         self.version_mods = self.get_versioned_files(self.version, self.mods)
         self.picked_mods = self.get_mods(self.version_mods)
         self.command = self.zip_command(self.picked_mods)
-        self.run_command(self.command)
 
     def get_files(self, mypath):
         onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -44,3 +43,4 @@ class Mods:
 
 if __name__ == "__main__":
     mod = Mods()
+    mod.run_command(mod.command)
