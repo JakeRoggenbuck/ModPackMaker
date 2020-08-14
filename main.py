@@ -20,12 +20,12 @@ class Mods:
         return onlyfiles
 
     # Searches for file version in filename
-    def get_versioned_files(self, version, files):
+    def get_versioned_files(self, version: str, files: list):
         version_mods = [mod for mod in files if re.search(version, mod)]
         return version_mods
 
     # Gets user requested mods
-    def get_mods(self, mods):
+    def get_mods(self, mods: list):
         questions = [inquirer.Checkbox("mods", message="Mods", choices=mods)]
         answers = inquirer.prompt(questions)
         return answers
@@ -36,16 +36,17 @@ class Mods:
         return version
 
     # Gets zip command prepared with files
-    def zip_command(self, mod_list):
+    def zip_command(self, mod_list: list):
         command = "zip mods "
         for mod in mod_list["mods"]:
             command += "mods/" + mod + " "
         return command
 
     # Runs command from zip_command
-    def run_command(self, command):
+    def run_command(self, command: str):
         print("saving as mod.zip")
         subprocess.run([command], shell=True)
+
 
 if __name__ == "__main__":
     mod = Mods()
