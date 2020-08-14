@@ -14,29 +14,35 @@ class Mods:
         self.picked_mods = self.get_mods(self.version_mods)
         self.command = self.zip_command(self.picked_mods)
 
+    # Gets files in directory
     def get_files(self, mypath):
         onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
         return onlyfiles
 
+    # Searches for file version in filename
     def get_versioned_files(self, version, files):
         version_mods = [mod for mod in files if re.search(version, mod)]
         return version_mods
 
+    # Gets user requested mods
     def get_mods(self, mods):
         questions = [inquirer.Checkbox("mods", message="Mods", choices=mods)]
         answers = inquirer.prompt(questions)
         return answers
 
+    # Gets user requested version
     def get_version(self):
         version = input("What version: ")
         return version
 
+    # Gets zip command prepared with files
     def zip_command(self, mod_list):
         command = "zip mods "
         for mod in mod_list["mods"]:
             command += "mods/" + mod + " "
         return command
 
+    # Runs command from zip_command
     def run_command(self, command):
         print("saving as mod.zip")
         subprocess.run([command], shell=True)
